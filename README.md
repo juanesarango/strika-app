@@ -4,10 +4,15 @@ First Prototypes for Strika App for CS 5336 Startup Design. Stack React + tailwi
 
 <img width="802" alt="Screen Shot 2021-03-18 at 9 52 55 PM" src="https://user-images.githubusercontent.com/7906289/111720826-0e549300-8835-11eb-8c22-02839e12eb75.png">
 
-## Available Scripts
+## Frontend Development
 
-In the project directory, you can run:
+In the `/frontend` directory, install node dependencies:
+```bash
+cd frontend
+yarn install
+```
 
+And there you can run the following scripts:
 ### `yarn start`
 
 Runs the app in the development mode.\
@@ -25,3 +30,11 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Backend development
+
+In the `/backend` directory, install node dependencies:
+```bash
+cd backend
+yarn install
+```
