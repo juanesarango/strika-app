@@ -1,5 +1,15 @@
 import './App.css'
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyAWZN68ORUCoheR5s-jbMvQF0NiB1hwCkU',
+  authDomain: 'strika-app.firebaseapp.com',
+  projectId: 'strika-app',
+  storageBucket: 'strika-app.appspot.com',
+  messagingSenderId: '801660555749',
+  appId: '1:801660555749:web:4bc653ef179762358f5f0c',
+  measurementId: 'G-CEDBLFHQNQ',
+}
+
 function App() {
   const friends = [
     {
