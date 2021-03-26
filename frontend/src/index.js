@@ -2,13 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 // import './firebaseui-styling.global.css'
-// import App from './App'
-import SignInScreen from './components/SignIn'
+import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignInScreen />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )

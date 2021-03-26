@@ -21,9 +21,7 @@ class SignInScreen extends React.Component {
 
   // Configure FirebaseUI.
   uiConfig = {
-    // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
-    // We will display Google and Facebook as auth providers.
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
     callbacks: {
       // Avoid redirects after sign-in.
