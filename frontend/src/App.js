@@ -1,11 +1,11 @@
 import './App.css'
 import FriendLists from './components/FriendLists'
-import SignInScreen from './components/SignIn'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div class="flex flex-col">
-      <SignInScreen />
+    <div className="flex flex-col">
+      <Navbar />
       <FriendLists />
     </div>
   )
