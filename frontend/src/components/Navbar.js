@@ -39,13 +39,13 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div className="py-5 justify-between sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-8 lg:px-4">
         <div className="relative flex grid items-center grid-cols-4 lg:grid-cols-3">
           <a
             href="/"
             aria-label="Company"
             title="Company"
-            className="inline-flex items-center lg:mx-auto"
+            className="inline-flex items-center lg:mx-4"
           >
             <svg
               className="w-8 text-indigo-600"
@@ -111,19 +111,23 @@ class Navbar extends React.Component {
               </li>
             ) : (
               <li>
-                <span
+                <div
                   style={{ cursor: 'default' }}
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-indigo-600"
+                  className="inline-block items-center justify-center text-center h-12 px-6 font-medium tracking-wide text-indigo-600"
                 >
-                  {this.state.user.displayName}
-                </span>
-                <span
-                  onClick={() => this.logout()}
-                  style={{ cursor: 'pointer' }}
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-                >
-                  Log out
-                </span>
+                  {this.state.user.displayName}{' '}
+                  <span
+                    onClick={() => this.logout()}
+                    style={{ cursor: 'pointer' }}
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+                  >
+                    (Log out)
+                  </span>
+                  <br />
+                  <span className="text-xs text-indigo-500">
+                    {this.state.user.email}
+                  </span>
+                </div>
               </li>
             )}
             {/* <li>
