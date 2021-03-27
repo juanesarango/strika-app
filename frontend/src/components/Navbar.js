@@ -39,7 +39,7 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div className="py-5 justify-between sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-8 lg:px-4">
+      <div className="py-5 justify-between sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-8 lg:px-4 bg-gray-100">
         <div className="relative flex grid items-center grid-cols-4 lg:grid-cols-3">
           <a
             href="/"
