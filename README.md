@@ -38,3 +38,45 @@ In the `/backend` directory, install node dependencies:
 cd backend
 yarn install
 ```
+
+### API Specification
+
+**GET `/leaderboard/{event}`**
+
+Get global scores from push-up challenge.
+
+```js
+# example response:
+[
+    {
+        name: "jea265",
+        score: 40,
+        timestamp: 8732465982
+    },
+    {
+        name: "da335",
+        score: 20,
+        timestamp: 287652394
+    }
+]
+```
+
+**POST `/leaderboard/{event}`**
+
+Register the obtained score in the leaderboard.
+```js
+# expected body:
+{
+    name: "jea265",
+    score: 40
+}
+```
+```js
+# expected response:
+{
+    name: "jea265",
+    score: 40,
+    timestamp: 8732465982,
+    currentRanking: 1,
+}
+```
