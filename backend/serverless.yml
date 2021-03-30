@@ -1,9 +1,13 @@
 
 service: strika-api
-app: strika-api
+app: strika-app
 org: juanesarango
 
 frameworkVersion: '2'
+useDotenv: true
+
+plugins:
+  - serverless-offline
 
 provider:
   name: aws
