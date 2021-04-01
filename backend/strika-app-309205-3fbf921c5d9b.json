@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "strika-app-309205",
+  "private_key_id": "3fbf921c5d9bbf091927d40cb6381d67f01833fb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC0IYOHJ2t8XPAX\n9dg2EGTyXsiPOIq8UVT1zZYGhvdevmS0wNxSIydcGBVSjbpkSE+lNhGWiPbexlkX\nx/REx9k5cVoZybV9YNXB4ECQCGz4Hl3cOa7xv8P2ZdwRk6fR+Tm+xuWaSf+1lOlP\nQGrFAf+oJToH/xJuImcP+UdKblOhbcWgZ42UGBswqVRVRIQDaF5xAEazSIvj0PsK\n0Euinits2yxWKuyXLtSTz1X6/VRpLFQ+m8E1tUEJJvdAOxrdvbzb7MmQUL/Pl2vz\nFhY/pwE9xh/hFJjaEO2Vj9BaLdxdB5zLz/QOgD35v1l1IEBRw0hO739GjAZTIVX9\nWSOpDtg/AgMBAAECggEAFv16CIt29AH2oNA/XrMb9zUyutjYGC33PoIVRlL+ioiZ\nWNqOpCsZcG8gdY9iPT9fbvImL4TeoVNGdrsOCaNKLcMyYT013UE5Nwv0oY15vvc9\nOojgM7mqfK3GdzXVwv5gqOFA177fFKFjX7qUhf150E+kBvY+t3DLn6XMvAq1wNIH\nYf871WM5iCCpmmM7/tEzYMwd4gp8sFUi3brWA2Pd8FeLaFg/YOvOkhneEq1KapVM\nOnTA91sCoHnVkmQBWL6YXdegTSnBZd4pzHdKp9k9UWrIThsJulKq6Ta5iJnvFyGk\nYlNxtzn9ri57zjmppZHWidfy9Y4B1Ks7TskIVYfd7QKBgQDnVfps0r1imIgB5d/V\n6DDBahQHNjR/bnh46QBgCXHrrk+jEZlR+450gFv75waFvI5qiPTRuuc05+C1nf8x\nXBWODUZiJXpNM+xuiIMP186NOBhLUYDaWZz6f8CBj3Og4VDWSWVHfk2k/4TWQsO+\nGG92oqWm4nRMAggrNcwyKLuyywKBgQDHVfYEMlU61zPFJKTsuUIa6F0GHRp0GCBq\n6BV+mufdvS8CDlS87Ua/SujjGPzRhkL1g/rXyaU8Rd1S51bGysppZ0ew1Mbp29iK\niNM7UX3LZWzk1MQHi8+PYEDsWsITqdg9+qfiRVCb8N+hNuBsJnWmb+d0W09XcLJV\nTiyEWD2d3QKBgB8sD72gPBLQGOugjSPm0MMPRzmdjT9qpGMuinVmcGpgp6yCj5Vj\nf1OlhD+SZueYe9xRLiQgukz/veDbNGrzTJhCo6xP/oXurDpMvNRisRuIZoWnquRB\nVQzQMCGFMgCIu/rUEwiqNU45fC3e+z9fTY2/5vBw7VjcoTspWaWcpYY3AoGAYIcH\n81BMZYoAz97G3rt3f4A2S9ecD8v/JsXsYrqwvXf3Y499CV/9enTUAeT/yJazpiCb\nQBOtqFpMqvDL3Mgm7JPO65qeGHEVk0BeycLUn8Il0UoXA3B4un1p8wqgINWGmbzf\nv3rBZkJmiLMCSlz1a/uUoYv2B+nS8exBMnVooSECgYBKiShm7fr2/cFoOds+H7ZZ\nEUkIY+fJebTxBBEOVyYq6xocRfedXBBL8E0MkeGfLWYzGHs5MUq5ore72mlG3Xb0\npNiNg1P0NQ3ruBl+tKs/4sq0vsugqiBJAJlHr9J/uGSXC856uhwukhrzmhjCm9qT\nY+RDNOPOgrt9bjUHrNGTTw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "strika-service-account@strika-app-309205.iam.gserviceaccount.com",
+  "client_id": "114712271896108573263",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/strika-service-account%40strika-app-309205.iam.gserviceaccount.com"
+}
