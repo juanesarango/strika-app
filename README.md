@@ -95,11 +95,14 @@ Register the obtained score in the leaderboard.
 }
 ```
 
-## Examples
+## Live demo
 Backend tests response:
 
 ```bash
 curl https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups
 ```
 
-![Pushup Screenshot](https://user-images.githubusercontent.com/7906289/113384968-29ef8b80-9355-11eb-9e4b-8d4e47ea3ed5.png)
+Try at: https://juanes.link
+
+![Pushup Screenshot](https://user-images.githubusercontent.com/7906289/113386289-ee09f580-9357-11eb-927a-775da95225b5.png)
+
