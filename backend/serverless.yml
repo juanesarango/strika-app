@@ -54,24 +54,42 @@ functions:
   api:
     handler: index.handler
     events:
-      - http: ANY /
-      - http: 'ANY /{proxy+}'
+      - http:
+          method: any
+          path: /
+          cors: true
+      - http:
+          method: any
+          path: '/{proxy+}'
+          cors: true
   getUser:
     handler: index.handler
     events:
-      - http: 'GET /users/{proxy+}'
+      - http:
+          method: get
+          path: /users/{proxy+}
+          cors: true
   createUser:
     handler: index.handler
     events:
-      - http: 'POST /users'
+      - http:
+          method: post
+          path: /users
+          cors: true
   getScores:
     handler: index.handler
     events:
-      - http: 'GET /scores/{proxy+}'
+      - http:
+          method: get
+          path: /scores/{proxy+}
+          cors: true
   postScore:
     handler: index.handler
     events:
-      - http: 'POST /scores'
+      - http:
+          method: post
+          path: /scores
+          cors: true
 
 
 resources:

@@ -1,12 +1,14 @@
 import './App.css'
-import FriendLists from './components/FriendLists'
+// import FriendLists from './components/FriendLists'
+import LeaderBoard from './components/LeaderBoard'
 import Navbar from './components/Navbar'
 
 function App() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <FriendLists />
+      <LeaderBoard />
+      {/* <FriendLists /> */}
     </div>
   )
 }

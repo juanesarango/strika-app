@@ -4,7 +4,7 @@ First Prototypes for Strika App for CS 5336 Startup Design. Stack React + tailwi
 
 <img width="802" alt="Screen Shot 2021-03-18 at 9 52 55 PM" src="https://user-images.githubusercontent.com/7906289/111720826-0e549300-8835-11eb-8c22-02839e12eb75.png">
 
-## Frontend Development
+## Frontend
 
 In the `/frontend` directory, install node dependencies:
 ```bash
@@ -31,12 +31,25 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Backend development
+## Backend
+
+### Development
 
 In the `/backend` directory, install node dependencies:
 ```bash
 cd backend
 yarn install
+```
+
+### Deployment
+
+Using serverless:
+```bash
+# Test locally
+serverless offline start
+
+# Deploy to production
+serverless deploy
 ```
 
 ### API Specification

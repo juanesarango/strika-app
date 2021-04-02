@@ -2,10 +2,12 @@
 const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const express = require('express')
+const cors = require('cors')
 const AWS = require('aws-sdk')
 
 const app = express()
 app.use(bodyParser.json({ strict: false }))
+app.use(cors())
 
 // Scores Endpoints
 const fs = require('fs')
