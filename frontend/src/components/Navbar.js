@@ -67,42 +67,8 @@ class Navbar extends React.Component {
               Strika
             </span>
           </a>
-          {this.state.isSigned ? (
-            <ul className="flex items-center space-x-8 lg:flex">
-              <li>
-                <a
-                  href="/"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-                >
-                  Explore
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-                >
-                  History
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  aria-label="Product pricing"
-                  title="Product pricing"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-                >
-                  Invite
-                </a>
-              </li>
-            </ul>
-          ) : (
-            <ul className="flex items-center space-x-8 lg:flex"></ul>
-          )}
+
+          <ul className="flex items-center space-x-8 lg:flex"></ul>
 
           <ul className="flex items-center ml-auto space-x-16 lg:flex">
             {!this.state.isSigned ? (
@@ -126,6 +92,7 @@ class Navbar extends React.Component {
                     style={{ cursor: 'pointer' }}
                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
                   >
+                    <br />
                     (Log out)
                   </span>
                   <br />
