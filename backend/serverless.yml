@@ -5,17 +5,44 @@ org: juanesarango
 
 frameworkVersion: '2'
 useDotenv: true
+configValidationMode: error
 
 plugins:
+  - serverless-dynamodb-local
   - serverless-offline
+
+custom:
+  usersTable: 'users-table-${self:provider.stage}'
+  scoresTable: 'scores-table-${self:provider.stage}'
+  dynamodb:
+    start:
+      migrate: true
 
 provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
-  configValidationMode: error
   apiGateway:
     shouldStartNameWithService: true
+  stage: dev
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
+            - { "Fn::GetAtt": ["ScoresDynamoDBTable", "Arn" ] }
+  environment:
+    USERS_TABLE: ${self:custom.usersTable}
+    SCORES_TABLE: ${self:custom.scoresTable}
 
 functions:
   whoami:
@@ -28,5 +55,54 @@ functions:
     handler: index.handler
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 'ANY /{proxy+}'
+  getUser:
+    handler: index.handler
+    events:
+      - http: 'GET /users/{proxy+}'
+  createUser:
+    handler: index.handler
+    events:
+      - http: 'POST /users'
+  getScores:
+    handler: index.handler
+    events:
+      - http: 'GET /scores/{proxy+}'
+  postScore:
+    handler: index.handler
+    events:
+      - http: 'POST /scores'
 
+
+resources:
+  Resources:
+    UsersDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.usersTable}
+    ScoresDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: challenge
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: challenge
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.scoresTable}
