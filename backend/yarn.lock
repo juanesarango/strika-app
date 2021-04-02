@@ -1567,6 +1567,13 @@ find-up@3.0.0, find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
+firebase-token-verifier@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/firebase-token-verifier/-/firebase-token-verifier-0.1.0.tgz#d4ca62b180ff514df3df98133e6098beec09ddc9"
+  integrity sha512-ElbxvkRZrqosGoohboxM13ggCUYbEiEKWMYW+8RpJwmPQSm4kmWms45tEkaKYKA4OIqHD5cXbs1gmW9ALbWG9Q==
+  dependencies:
+    jwt-simple "^0.5.5"
+
 flat@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/flat/-/flat-4.1.1.tgz#a392059cc382881ff98642f5da4dde0a959f309b"
@@ -2126,6 +2133,11 @@ jws@^3.2.2:
   dependencies:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
+
+jwt-simple@^0.5.5:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/jwt-simple/-/jwt-simple-0.5.6.tgz#3357adec55b26547114157be66748995b75b333a"
+  integrity sha512-40aUybvhH9t2h71ncA1/1SbtTNCVZHgsTsTgqPUxGWDmUDrXyDf2wMNQKEbdBjbf4AI+fQhbECNTV6lWxQKUzg==
 
 keyv@^3.0.0:
   version "3.1.0"

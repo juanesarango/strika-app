@@ -3,71 +3,32 @@ import fromUnixTime from 'date-fns/fromUnixTime'
 import format from 'date-fns/format'
 
 class LeaderBoard extends React.Component {
-  state = {
-    scores: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      scores: [],
+    }
+    this.queryScores = this.queryScores.bind(this)
   }
 
-  async componentDidMount() {
+  componentWillMount() {
+    if (this.props.user) {
+      this.queryScores()
+    }
+  }
+
+  async queryScores() {
+    const idToken = await this.props.user.getIdToken()
     const response = await fetch(
-      'https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups'
+      'https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups',
+      { headers: { Authorization: idToken } }
     )
+    if (response.status === 401) {
+      return console.log('unauthorized')
+    }
     const scores = await response.json()
-    // save it to your components state so you can use it during render
     this.setState({ scores })
-    console.log(scores)
   }
-
-  // const friends = [
-  //   {
-  //     profile: 'ana-itonishvili-Fyl8sMC2j2Q-unsplash.jpg',
-  //     name: 'Ana',
-  //     lastSession: 'Last Session: Yesterday, 10:30 am',
-  //     preferences: ['Yoga 🧘🏼‍♂️', 'Boxing 🥊'],
-  //     status: 'Online',
-  //   },
-  //   {
-  //     profile: 'anastase-maragos-fG0p4Qh_aWI-unsplash.jpg',
-  //     name: 'Cody',
-  //     lastSession: 'Last Session: Today, 11:07 am',
-  //     preferences: ['Weights 🏋🏻'],
-  //     status: 'Offline',
-  //   },
-  //   {
-  //     profile: 'ben-den-engelsen-YUu9UAcOKZ4-unsplash.jpg',
-  //     name: 'Ben',
-  //     lastSession: 'Last Session: Last Monday, 04:05 am',
-  //     preferences: ['Boxing 🥊', 'HIT ⚡️'],
-  //     status: 'Online',
-  //   },
-  //   {
-  //     profile: 'ben-parker-OhKElOkQ3RE-unsplash.jpg',
-  //     name: 'Charles',
-  //     lastSession: 'Last Session: January 20th, 12:10 am',
-  //     preferences: ['Crossfit 💪🏼'],
-  //     status: 'Offline',
-  //   },
-  //   {
-  //     profile: 'julia-ballew-Gh8QHONEHOE-unsplash.jpg',
-  //     name: 'Julia',
-  //     lastSession: 'Last Session: Last Thursday, 08:45 am',
-  //     preferences: ['Yoga 🧘🏼‍♂️'],
-  //     status: 'Online',
-  //   },
-  //   {
-  //     profile: 'karsten-winegeart-Jc-UCKGhIlU-unsplash.jpg',
-  //     name: 'Christine',
-  //     lastSession: 'Last Session: Yesterday, 9:00 am',
-  //     preferences: ['Boxing 🥊', 'HIT ⚡️'],
-  //     status: 'Online',
-  //   },
-  //   {
-  //     profile: 'thomas-yohei-BAlBUJb-SXQ-unsplash.jpg',
-  //     name: 'Thomas',
-  //     lastSession: 'Last Session: Today, 1:30 pm',
-  //     preferences: ['Crossfit 💪🏼', 'Yoga 🧘🏼‍♂️'],
-  //     status: 'Online',
-  //   },
-  // ]
 
   render() {
     const scoreList = this.state.scores
@@ -113,7 +74,7 @@ class LeaderBoard extends React.Component {
               ) : null}
               {rank === this.state.scores.length - 1 ? (
                 <span>
-                  🐷 &nbsp;&nbsp;&nbsp;&nbsp;
+                  😴 &nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                     Laziest
                   </span>
@@ -136,7 +97,7 @@ class LeaderBoard extends React.Component {
                   Official Leaderboard
                 </h2>
                 <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                  #PushUpChallenge 💪🏼
+                  #PushUpsChallenge 💪🏼
                 </p>
                 <p className="mt-5 max-w-2xl text-xl text-gray-500 sm:mx-auto"></p>
               </div>
@@ -159,7 +120,7 @@ class LeaderBoard extends React.Component {
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Total Push-ups
                     </th>

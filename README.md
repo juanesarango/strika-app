@@ -94,3 +94,12 @@ Register the obtained score in the leaderboard.
     timestamp: 8732465982,
 }
 ```
+
+## Examples
+Backend tests response:
+
+```bash
+curl https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups
+```
+
+![Pushup Screenshot](https://user-images.githubusercontent.com/7906289/113384968-29ef8b80-9355-11eb-9e4b-8d4e47ea3ed5.png)

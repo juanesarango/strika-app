@@ -21,6 +21,7 @@ class Navbar extends React.Component {
   setAuthentication(user) {
     console.log(user)
     this.setState({ user, showModal: !user, isSigned: !!user })
+    this.props.onAuthenticate(user)
   }
 
   setIsMenuOpen(value) {
@@ -39,7 +40,7 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div className="py-5 justify-between sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-8 lg:px-4 bg-gray-100">
+      <div className="py-5 justify-between max-w-full px-8 bg-gray-100">
         <div className="relative flex grid items-center grid-cols-3 lg:grid-cols-3">
           <a
             href="/"
@@ -66,38 +67,42 @@ class Navbar extends React.Component {
               Strika
             </span>
           </a>
-          <ul className="flex items-center space-x-8 lg:flex">
-            <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-              >
-                Explore
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-              >
-                History
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
-              >
-                Invite
-              </a>
-            </li>
-          </ul>
+          {this.state.isSigned ? (
+            <ul className="flex items-center space-x-8 lg:flex">
+              <li>
+                <a
+                  href="/"
+                  aria-label="Our product"
+                  title="Our product"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+                >
+                  Explore
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  aria-label="Our product"
+                  title="Our product"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+                >
+                  History
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  aria-label="Product pricing"
+                  title="Product pricing"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+                >
+                  Invite
+                </a>
+              </li>
+            </ul>
+          ) : (
+            <ul className="flex items-center space-x-8 lg:flex"></ul>
+          )}
 
           <ul className="flex items-center ml-auto space-x-16 lg:flex">
             {!this.state.isSigned ? (
@@ -106,7 +111,7 @@ class Navbar extends React.Component {
                   onClick={() => this.setShowModal(true)}
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
                 >
-                  Sign in
+                  Sign in / Sign up
                 </span>
               </li>
             ) : (
