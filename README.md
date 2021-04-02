@@ -41,9 +41,9 @@ yarn install
 
 ### API Specification
 
-**GET `/leaderboard/{event}`**
+**GET `/scores/{event}`**
 
-Get global scores from push-up challenge.
+Get leaderboard global scores from push-up challenge.
 
 ```js
 # example response:
@@ -61,7 +61,7 @@ Get global scores from push-up challenge.
 ]
 ```
 
-**POST `/leaderboard/{event}`**
+**POST `/scores/{event}`**
 
 Register the obtained score in the leaderboard.
 ```js
