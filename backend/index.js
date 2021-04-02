@@ -4,10 +4,29 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const cors = require('cors')
 const AWS = require('aws-sdk')
+const verifier = require('firebase-token-verifier')
 
 const app = express()
 app.use(bodyParser.json({ strict: false }))
 app.use(cors())
+
+// Validate auth token from headers
+app.use(async (req, res, next) => {
+  let verified
+  console.log(req)
+  const token = req.header('Authorization')
+  if (token) {
+    try {
+      verified = await verifier.verify(token)
+    } catch (err) {
+      res.status(401).json({ error: 'Auth Token is invalid.' })
+    }
+    req.user = verified
+    next()
+  } else {
+    res.status(401).json({ error: 'Auth Token is missing.' })
+  }
+})
 
 // Scores Endpoints
 const fs = require('fs')
@@ -133,13 +152,6 @@ app.post('/scores', function (req, res) {
     }
     res.json({ userId, score, challenge, timestamp })
   })
-})
-
-// Config Server
-const PORT = process.env.PORT || 3000
-const server = require('http').Server(app)
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
 })
 
 module.exports.handler = serverless(app)
