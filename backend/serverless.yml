@@ -13,6 +13,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  configValidationMode: error
   apiGateway:
     shouldStartNameWithService: true
 
@@ -23,3 +24,9 @@ functions:
       - http:
           path: whoami
           method: get
+  api:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+

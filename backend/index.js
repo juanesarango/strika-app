@@ -1,4 +1,5 @@
 // Setup Express Server
+const serverless = require('serverless-http')
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
@@ -16,3 +17,5 @@ app.get('/scores/:event', (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+module.exports.handler = serverless(app)
