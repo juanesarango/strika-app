@@ -99,10 +99,18 @@ Register the obtained score in the leaderboard.
 Backend tests response:
 
 ```bash
+# With no auth
 curl https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups
+```
+
+```bash
+# With JWT token
+curl 'https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups' \
+  -H 'authorization: eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkOGM3OTdlMDQ5YWFkZWViOWM5M2RiZGU3ZDAwMzJmNjk3NjYwYmQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSnVhbmVzIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3N0cmlrYS1hcHAiLCJhdWQiOiJzdHJpa2EtYXBwIiwiYXV0aF90aW1lIjoxNjE3MzQzNjcwLCJ1c2VyX2lkIjoiRGcycDZjcG9ud1h0VGtJdzZoNjhSSlZmazZKMiIsInN1YiI6IkRnMnA2Y3BvbndYdFRrSXc2aDY4UkpWZms2SjIiLCJpYXQiOjE2MTc1MTI0NzIsImV4cCI6MTYxNzUxNjA3MiwiZW1haWwiOiJqdWFuZXNAc3RyaWthLmlvIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImp1YW5lc0BzdHJpa2EuaW8iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.XLoq0BEPDfGUnuyknOkZJAPTbcbh0z2TTPN1m2togQgwFELEX6MqtV3LU1lifIXNP47YGsZlIqsUyVBrz4VgQWoFPwT0HeNndaUkHdw7oB3CUrQBgR-T-OFCXvrdqsFPYHoZcGTsXZ9ymnuRF0_SsbK_hUv0AGprs5Do9lgMdLI2wZC8CrZFgaezYKCXZh-1g_kAW1-NN1SggW8mUIENMhO_QSGq93oEi1CpeWKUdixRqQ7KujdGwSBTEj63DE43BdDLNFcQzA0hFAmDkmOgWDaUr2gr7cVuI-3H1qRdKc1nGizYXbN32gFI0zemtSOeEGaj7PGrOLQ-WMt1bdO5Ww'
 ```
 
 Try at: https://juanes.link
 
 ![Pushup Screenshot](https://user-images.githubusercontent.com/7906289/113386289-ee09f580-9357-11eb-927a-775da95225b5.png)
+
 

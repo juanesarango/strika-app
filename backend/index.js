@@ -28,28 +28,11 @@ app.use(async (req, res, next) => {
   }
 })
 
-// Scores Endpoints
-const fs = require('fs')
-const data = JSON.parse(fs.readFileSync('test.json', 'utf8'))
-
-app.get('/scores/:challenge', (req, res) => {
-  res.json(data)
-})
-
 // Configure DynamoDB
 const USERS_TABLE = process.env.USERS_TABLE
 const SCORES_TABLE = process.env.SCORES_TABLE
-const IS_OFFLINE = process.env.IS_OFFLINE
 
-if (IS_OFFLINE === 'true') {
-  dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost',
-    endpoint: 'http://localhost:8000',
-  })
-  console.log(dynamoDb)
-} else {
-  dynamoDb = new AWS.DynamoDB.DocumentClient()
-}
+dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 // Get User endpoint
 app.get('/users/:userId', function (req, res) {
@@ -102,7 +85,7 @@ app.post('/users', function (req, res) {
 
 // Get User endpoint
 app.get('/scores/:challenge', function (req, res) {
-  const { challenge } = req.params.challenge
+  const { challenge } = req.params
 
   const params = {
     TableName: SCORES_TABLE,
@@ -131,17 +114,17 @@ app.post('/scores', function (req, res) {
     res.status(400).json({ error: '"userId" must be a string' })
   } else if (typeof score !== 'number') {
     res.status(400).json({ error: '"score" must be a number' })
-  } else if (typeof challenge !== 'number') {
-    res.status(400).json({ error: '"challenge" must be a number' })
+  } else if (typeof challenge !== 'string') {
+    res.status(400).json({ error: '"challenge" must be a string' })
   }
-
+  const timestamp = Date.now()
   const params = {
     TableName: SCORES_TABLE,
     Item: {
       userId: userId,
       score: score,
       challenge: challenge,
-      timestamp: Date.now(),
+      timestamp: timestamp,
     },
   }
 

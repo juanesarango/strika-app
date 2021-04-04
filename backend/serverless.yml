@@ -24,7 +24,7 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
-  stage: dev
+  stage: prod
   region: us-east-1
   iam:
     role:
