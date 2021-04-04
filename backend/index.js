@@ -11,22 +11,22 @@ app.use(bodyParser.json({ strict: false }))
 app.use(cors())
 
 // Validate auth token from headers
-app.use(async (req, res, next) => {
-  let verified
-  console.log(req)
-  const token = req.header('Authorization')
-  if (token) {
-    try {
-      verified = await verifier.verify(token)
-    } catch (err) {
-      res.status(401).json({ error: 'Auth Token is invalid.' })
-    }
-    req.user = verified
-    next()
-  } else {
-    res.status(401).json({ error: 'Auth Token is missing.' })
-  }
-})
+// app.use(async (req, res, next) => {
+//   let verified
+//   console.log(req)
+//   const token = req.header('Authorization')
+//   if (token) {
+//     try {
+//       verified = await verifier.verify(token)
+//     } catch (err) {
+//       res.status(401).json({ error: 'Auth Token is invalid.' })
+//     }
+//     req.user = verified
+//     next()
+//   } else {
+//     res.status(401).json({ error: 'Auth Token is missing.' })
+//   }
+// })
 
 // Configure DynamoDB
 const USERS_TABLE = process.env.USERS_TABLE
@@ -89,18 +89,19 @@ app.get('/scores/:challenge', function (req, res) {
 
   const params = {
     TableName: SCORES_TABLE,
-    Key: {
-      challenge: challenge,
+    KeyConditionExpression: 'challenge = :challenge',
+    ExpressionAttributeValues: {
+      ':challenge': challenge,
     },
   }
 
-  dynamoDb.get(params, (error, result) => {
+  dynamoDb.query(params, (error, result) => {
     if (error) {
       console.log(error)
       res.status(400).json({ error: `Could not get challenge ${challenge}` })
     }
-    if (result.Item) {
-      res.json(result.Item)
+    if (result.Items) {
+      res.json(result.Items)
     } else {
       res.status(404).json({ error: `Challenge ${challenge} not found` })
     }
