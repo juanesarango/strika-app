@@ -5,10 +5,8 @@ const express = require('express')
 const cors = require('cors')
 const AWS = require('aws-sdk')
 const verifier = require('firebase-token-verifier')
-const { response } = require('express')
 
 const app = express()
-app.use(bodyParser.json({ strict: false }))
 app.use(cors())
 
 // Validate auth token from headers
