@@ -11,7 +11,7 @@ class LeaderBoard extends React.Component {
     this.queryScores = this.queryScores.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.user) {
       this.queryScores()
     }

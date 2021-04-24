@@ -27,3 +27,6 @@ curl \
 
 # Get Leaderboard
 curl $HOST/scores/pushups
+
+
+curl https://w4wy1yzxmg.execute-api.us-east-1.amazonaws.com/prod/scores/pushups

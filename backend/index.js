@@ -5,28 +5,30 @@ const express = require('express')
 const cors = require('cors')
 const AWS = require('aws-sdk')
 const verifier = require('firebase-token-verifier')
+const { response } = require('express')
 
 const app = express()
 app.use(bodyParser.json({ strict: false }))
 app.use(cors())
 
 // Validate auth token from headers
-// app.use(async (req, res, next) => {
-//   let verified
-//   console.log(req)
-//   const token = req.header('Authorization')
-//   if (token) {
-//     try {
-//       verified = await verifier.verify(token)
-//     } catch (err) {
-//       res.status(401).json({ error: 'Auth Token is invalid.' })
-//     }
-//     req.user = verified
-//     next()
-//   } else {
-//     res.status(401).json({ error: 'Auth Token is missing.' })
-//   }
-// })
+app.use(async (req, res, next) => {
+  let verified
+  console.log(req)
+  const token = req.header('Authorization')
+  if (token) {
+    try {
+      verified = await verifier.verify(token)
+    } catch (err) {
+      res.status(401).json({ error: 'Auth Token is invalid.' })
+      return
+    }
+    req.user = verified
+    next()
+  } else {
+    res.status(401).json({ error: 'Auth Token is missing.' })
+  }
+})
 
 // Configure DynamoDB
 const USERS_TABLE = process.env.USERS_TABLE
@@ -86,16 +88,16 @@ app.post('/users', function (req, res) {
 // Get User endpoint
 app.get('/scores/:challenge', function (req, res) {
   const { challenge } = req.params
-
+  // console.log('Table', SCORES_TABLE)
   const params = {
     TableName: SCORES_TABLE,
-    KeyConditionExpression: 'challenge = :challenge',
+    FilterExpression: 'challenge = :challenge',
     ExpressionAttributeValues: {
       ':challenge': challenge,
     },
   }
 
-  dynamoDb.query(params, (error, result) => {
+  dynamoDb.scan(params, (error, result) => {
     if (error) {
       console.log(error)
       res.status(400).json({ error: `Could not get challenge ${challenge}` })
