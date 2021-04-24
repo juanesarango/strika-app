@@ -7,7 +7,6 @@ const AWS = require('aws-sdk')
 const verifier = require('firebase-token-verifier')
 
 const app = express()
-app.use(bodyParser.json({ strict: false }))
 app.use(cors())
 
 // Validate auth token from headers
@@ -20,6 +19,7 @@ app.use(async (req, res, next) => {
       verified = await verifier.verify(token)
     } catch (err) {
       res.status(401).json({ error: 'Auth Token is invalid.' })
+      return
     }
     req.user = verified
     next()
@@ -28,28 +28,11 @@ app.use(async (req, res, next) => {
   }
 })
 
-// Scores Endpoints
-const fs = require('fs')
-const data = JSON.parse(fs.readFileSync('test.json', 'utf8'))
-
-app.get('/scores/:challenge', (req, res) => {
-  res.json(data)
-})
-
 // Configure DynamoDB
 const USERS_TABLE = process.env.USERS_TABLE
 const SCORES_TABLE = process.env.SCORES_TABLE
-const IS_OFFLINE = process.env.IS_OFFLINE
 
-if (IS_OFFLINE === 'true') {
-  dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost',
-    endpoint: 'http://localhost:8000',
-  })
-  console.log(dynamoDb)
-} else {
-  dynamoDb = new AWS.DynamoDB.DocumentClient()
-}
+dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 // Get User endpoint
 app.get('/users/:userId', function (req, res) {
@@ -102,22 +85,23 @@ app.post('/users', function (req, res) {
 
 // Get User endpoint
 app.get('/scores/:challenge', function (req, res) {
-  const { challenge } = req.params.challenge
-
+  const { challenge } = req.params
+  // console.log('Table', SCORES_TABLE)
   const params = {
     TableName: SCORES_TABLE,
-    Key: {
-      challenge: challenge,
+    FilterExpression: 'challenge = :challenge',
+    ExpressionAttributeValues: {
+      ':challenge': challenge,
     },
   }
 
-  dynamoDb.get(params, (error, result) => {
+  dynamoDb.scan(params, (error, result) => {
     if (error) {
       console.log(error)
       res.status(400).json({ error: `Could not get challenge ${challenge}` })
     }
-    if (result.Item) {
-      res.json(result.Item)
+    if (result.Items) {
+      res.json(result.Items)
     } else {
       res.status(404).json({ error: `Challenge ${challenge} not found` })
     }
@@ -131,17 +115,17 @@ app.post('/scores', function (req, res) {
     res.status(400).json({ error: '"userId" must be a string' })
   } else if (typeof score !== 'number') {
     res.status(400).json({ error: '"score" must be a number' })
-  } else if (typeof challenge !== 'number') {
-    res.status(400).json({ error: '"challenge" must be a number' })
+  } else if (typeof challenge !== 'string') {
+    res.status(400).json({ error: '"challenge" must be a string' })
   }
-
+  const timestamp = Date.now()
   const params = {
     TableName: SCORES_TABLE,
     Item: {
       userId: userId,
       score: score,
       challenge: challenge,
-      timestamp: Date.now(),
+      timestamp: timestamp,
     },
   }
 

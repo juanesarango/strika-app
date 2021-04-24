@@ -99,10 +99,19 @@ Register the obtained score in the leaderboard.
 Backend tests response:
 
 ```bash
+# With no auth
 curl https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups
+```
+
+```bash
+# With JWT token
+curl \
+    -H 'authorization: <your-JWT-token>'
+    https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups
 ```
 
 Try at: https://juanes.link
 
 ![Pushup Screenshot](https://user-images.githubusercontent.com/7906289/113386289-ee09f580-9357-11eb-927a-775da95225b5.png)
+
 

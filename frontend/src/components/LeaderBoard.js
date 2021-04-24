@@ -11,7 +11,7 @@ class LeaderBoard extends React.Component {
     this.queryScores = this.queryScores.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.user) {
       this.queryScores()
     }
@@ -20,7 +20,7 @@ class LeaderBoard extends React.Component {
   async queryScores() {
     const idToken = await this.props.user.getIdToken()
     const response = await fetch(
-      'https://hs0w3cqnse.execute-api.us-east-1.amazonaws.com/dev/scores/pushups',
+      'https://w4wy1yzxmg.execute-api.us-east-1.amazonaws.com/prod/scores/pushups',
       { headers: { Authorization: idToken } }
     )
     if (response.status === 401) {

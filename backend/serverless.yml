@@ -12,8 +12,8 @@ plugins:
   - serverless-offline
 
 custom:
-  usersTable: 'users-table-${self:provider.stage}'
-  scoresTable: 'scores-table-${self:provider.stage}'
+  usersTable: 'strika-users-table-${self:provider.stage}'
+  scoresTable: 'strika-scores-table-${self:provider.stage}'
   dynamodb:
     start:
       migrate: true
@@ -24,7 +24,7 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
-  stage: dev
+  stage: prod
   region: us-east-1
   iam:
     role:
@@ -114,12 +114,18 @@ resources:
       Properties:
         AttributeDefinitions:
           -
+            AttributeName: userId
+            AttributeType: S
+          -
             AttributeName: challenge
             AttributeType: S
         KeySchema:
           -
-            AttributeName: challenge
+            AttributeName: userId
             KeyType: HASH
+          -
+            AttributeName: challenge
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
