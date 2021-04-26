@@ -14,12 +14,18 @@ class LeaderBoard extends React.Component {
     this.queryScores = this.queryScores.bind(this)
     this.postScore = this.postScore.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.setChallenge = this.setChallenge.bind(this)
   }
 
   componentDidMount() {
     if (this.props.user) {
       this.queryScores()
     }
+  }
+
+  setChallenge(challenge) {
+    this.setState({ challenge })
+    this.queryScores()
   }
 
   async queryScores() {
@@ -127,43 +133,59 @@ class LeaderBoard extends React.Component {
         )
       })
 
-    const buttonText = {
-      post: 'Post New Score',
-      loading: 'Posting...',
-      success: 'Submitted',
-    }[this.state.buttonState]
-
     return (
-      <div className="flex flex-col">
-        <form
-          className="inline-flex col-span-3 rounded-none"
-          onSubmit={this.postScore}
-        >
-          <label className="col-span-1">
-            {/* Post New Score: */}
-            <input
-              type="number"
-              name="newScore"
-              min={0}
-              className="border m-4 p-1 px-4 leading-loose rounded-none"
-              value={this.state.newScore}
-              onChange={this.handleChange}
-            />
-          </label>
+      <div className="flex flex-col justify-between">
+        <div className="inline-flex rounded-none">
           {this.state.buttonState !== 'success' ? (
-            <input
-              type="submit"
-              value={buttonText}
-              disabled={this.buttonState === 'loading'}
-              className="col-span-1 py-2 px-6 mt-4 mb-4 bg-indigo-600 text-white rounded-none"
-            />
+            <form onSubmit={this.postScore}>
+              <label className="col-span-1">
+                {/* Post New Score: */}
+                <input
+                  type="number"
+                  name="newScore"
+                  min={0}
+                  className="border m-4 p-1 px-4 leading-loose rounded-none"
+                  value={this.state.newScore}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <input
+                type="submit"
+                value={`Post New ${
+                  this.state.challenge === 'pushups' ? 'Push Up' : 'Squat'
+                } Score`}
+                disabled={this.buttonState === 'loading'}
+                className="col-span-1 py-2 px-6 mt-4 mb-4 bg-indigo-600 text-white rounded-none"
+              />
+            </form>
           ) : (
-            <h3 className="m-4 p-1 leading-loose">
-              Your result was successfully posted!
+            <h3 className="m-4">
+              🎉 <strong>Your result was successfully posted! 💯</strong>
             </h3>
           )}
-        </form>
-
+          <div className="ml-auto mr-4">
+            <button
+              className={`col-span-1 py-2 px-6 mt-4 mb-4 mx-0 rounded-none border border-indigo-600 ${
+                this.state.challenge === 'pushups'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-indigo-600 bg-white'
+              }`}
+              onClick={() => this.setChallenge('pushups')}
+            >
+              Push Ups
+            </button>
+            <button
+              className={`col-span-1 py-2 px-6 mt-4 mb-4 mx-0 rounded-none border border-indigo-600 ${
+                this.state.challenge === 'squats'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-indigo-600 bg-white'
+              }`}
+              onClick={() => this.setChallenge('squats')}
+            >
+              Squats
+            </button>
+          </div>
+        </div>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 xl:rounded-lg">
@@ -172,7 +194,8 @@ class LeaderBoard extends React.Component {
                   Official Leaderboard
                 </h2>
                 <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                  #PushUpsChallenge 💪🏼
+                  #{this.state.challenge === 'pushups' ? 'PushUp' : 'Squats'}
+                  Challenge 💪🏼
                 </p>
                 <p className="mt-5 max-w-2xl text-xl text-gray-500 sm:mx-auto"></p>
               </div>
