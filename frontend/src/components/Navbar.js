@@ -19,7 +19,6 @@ class Navbar extends React.Component {
   }
 
   setAuthentication(user) {
-    console.log(user)
     this.setState({ user, showModal: !user, isSigned: !!user })
     this.props.onAuthenticate(user)
   }
@@ -34,7 +33,6 @@ class Navbar extends React.Component {
 
   logout() {
     console.log('Logging Out')
-    console.log(this.auth)
     this.auth.current.logout()
   }
 

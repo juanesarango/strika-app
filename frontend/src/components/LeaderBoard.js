@@ -7,8 +7,13 @@ class LeaderBoard extends React.Component {
     super(props)
     this.state = {
       scores: [],
+      newScore: '',
+      challenge: 'pushups',
+      buttonState: 'post',
     }
     this.queryScores = this.queryScores.bind(this)
+    this.postScore = this.postScore.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -19,15 +24,54 @@ class LeaderBoard extends React.Component {
 
   async queryScores() {
     const idToken = await this.props.user.getIdToken()
+    const { challenge } = this.state
     const response = await fetch(
-      'https://w4wy1yzxmg.execute-api.us-east-1.amazonaws.com/prod/scores/pushups',
-      { headers: { Authorization: idToken } }
+      `https://w4wy1yzxmg.execute-api.us-east-1.amazonaws.com/prod/scores/${challenge}`,
+      {
+        headers: { Authorization: idToken },
+      }
     )
     if (response.status === 401) {
       return console.log('unauthorized')
     }
     const scores = await response.json()
     this.setState({ scores })
+  }
+
+  handleChange(event) {
+    this.setState({ newScore: event.target.value })
+  }
+
+  async postScore(event) {
+    event.preventDefault()
+    if (!this.state.newScore) return
+
+    this.setState({ buttonState: 'loading' })
+
+    const idToken = await this.props.user.getIdToken()
+    const data = {
+      userId: this.props.user.displayName,
+      score: Number(this.state.newScore),
+      challenge: this.state.challenge,
+    }
+    console.log(data)
+    const response = await fetch(
+      'https://w4wy1yzxmg.execute-api.us-east-1.amazonaws.com/prod/scores/',
+      {
+        method: 'POST',
+        headers: { Authorization: idToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      }
+    )
+    if (response.status === 401) {
+      return console.log('unauthorized')
+    }
+    this.setState({ newScore: '', buttonState: 'success' })
+    this.queryScores()
+
+    setTimeout(() => {
+      this.setState({ buttonState: 'post' })
+    }, 4000)
   }
 
   render() {
@@ -83,8 +127,43 @@ class LeaderBoard extends React.Component {
         )
       })
 
+    const buttonText = {
+      post: 'Post New Score',
+      loading: 'Posting...',
+      success: 'Submitted',
+    }[this.state.buttonState]
+
     return (
       <div className="flex flex-col">
+        <form
+          className="inline-flex col-span-3 rounded-none"
+          onSubmit={this.postScore}
+        >
+          <label className="col-span-1">
+            {/* Post New Score: */}
+            <input
+              type="number"
+              name="newScore"
+              min={0}
+              className="border m-4 p-1 px-4 leading-loose rounded-none"
+              value={this.state.newScore}
+              onChange={this.handleChange}
+            />
+          </label>
+          {this.state.buttonState !== 'success' ? (
+            <input
+              type="submit"
+              value={buttonText}
+              disabled={this.buttonState === 'loading'}
+              className="col-span-1 py-2 px-6 mt-4 mb-4 bg-indigo-600 text-white rounded-none"
+            />
+          ) : (
+            <h3 className="m-4 p-1 leading-loose">
+              Your result was successfully posted!
+            </h3>
+          )}
+        </form>
+
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 xl:rounded-lg">
