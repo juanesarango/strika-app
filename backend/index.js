@@ -31,6 +31,7 @@ app.use(async (req, res, next) => {
 // Configure DynamoDB
 const USERS_TABLE = process.env.USERS_TABLE
 const SCORES_TABLE = process.env.SCORES_TABLE
+const VIDEOS_TABLE = process.env.VIDEOS_TABLE
 
 dynamoDb = new AWS.DynamoDB.DocumentClient()
 
@@ -135,6 +136,26 @@ app.post('/scores', function (req, res) {
       res.status(400).json({ error: 'Could not post new score' })
     }
     res.json({ userId, score, challenge, timestamp })
+  })
+})
+
+// Get User endpoint
+app.get('/videos', function (req, res) {
+  console.log('Table', SCORES_TABLE)
+  const params = {
+    TableName: VIDEOS_TABLE,
+  }
+
+  dynamoDb.scan(params, (error, result) => {
+    if (error) {
+      console.log(error)
+      res.status(400).json({ error: `Could not get videos` })
+    }
+    if (result.Items) {
+      res.json(result.Items)
+    } else {
+      res.status(404).json({ error: `Any video was found` })
+    }
   })
 })
 

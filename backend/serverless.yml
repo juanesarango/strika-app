@@ -14,6 +14,7 @@ plugins:
 custom:
   usersTable: 'strika-users-table-${self:provider.stage}'
   scoresTable: 'strika-scores-table-${self:provider.stage}'
+  videosTable: 'strika-videos-table-${self:provider.stage}'
   dynamodb:
     start:
       migrate: true
@@ -40,9 +41,11 @@ provider:
           Resource:
             - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
             - { "Fn::GetAtt": ["ScoresDynamoDBTable", "Arn" ] }
+            - { "Fn::GetAtt": ["VideosDynamoDBTable", "Arn" ] }
   environment:
     USERS_TABLE: ${self:custom.usersTable}
     SCORES_TABLE: ${self:custom.scoresTable}
+    VIDEOS_TABLE: ${self:custom.videosTable}
 
 functions:
   whoami:
@@ -90,6 +93,13 @@ functions:
           method: post
           path: /scores
           cors: true
+  getVideos:
+    handler: index.handler
+    events:
+      - http:
+          method: get
+          path: /videos/{proxy+}
+          cors: true
 
 
 resources:
@@ -130,3 +140,24 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.scoresTable}
+    VideosDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userId
+            AttributeType: S
+          -
+            AttributeName: videoPath
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userId
+            KeyType: HASH
+          -
+            AttributeName: videoPath
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.videosTable}
