@@ -1,6 +1,10 @@
 # Strika-App
 
-First Prototypes for Strika App for Startup Design. Stack React + tailwindCss.
+CS5412: First Prototypes for Strika App for Cornell Tech projects. 
+
+**Tech Stack**:
+- Frontend made with Stack React + tailwindCss, hosted in AWS Amplify. 
+- Backend with Express JS API connected to a DynamoDB, deployed with Serverless in AWS Lambda.
 
 <img width="802" alt="Screen Shot 2021-03-18 at 9 52 55 PM" src="https://user-images.githubusercontent.com/7906289/111720826-0e549300-8835-11eb-8c22-02839e12eb75.png">
 
