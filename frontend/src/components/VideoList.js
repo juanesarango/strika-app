@@ -31,8 +31,11 @@ class VideoList extends React.Component {
   }
 
   render() {
-    const videoList = this.state.videos.map(
-      ({ userId, videoPath, gifPath, status }, index) => {
+    const videoList = this.state.videos
+      .sort((a, b) => {
+        return a.status < b.status ? 1 : -1
+      })
+      .map(({ userId, videoPath, gifPath, status }, index) => {
         const userInitial = userId.charAt(0).toLowerCase()
         return (
           <tr key={index}>
@@ -95,8 +98,7 @@ class VideoList extends React.Component {
             </td>
           </tr>
         )
-      }
-    )
+      })
 
     return (
       <div className="flex flex-col justify-between">
