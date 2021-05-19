@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthScreen from './Authenticate'
-
+import { Link } from 'react-router-dom'
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
@@ -39,7 +39,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className="py-5 justify-between max-w-full px-8 bg-gray-100">
-        <div className="relative flex grid items-center grid-cols-3 lg:grid-cols-3">
+        <div className="relative flex grid items-center grid-cols-6 lg:grid-cols-6">
           <a
             href="/"
             aria-label="Company"
@@ -66,6 +66,13 @@ class Navbar extends React.Component {
             </span>
           </a>
 
+          <ul className="flex items-center space-x-8 lg:flex text-indigo-600 text-lg">
+            <Link to="/">Leaderboard</Link>
+            <Link to="/videos">Videos</Link>
+          </ul>
+
+          <ul className="flex items-center space-x-8 lg:flex"></ul>
+          <ul className="flex items-center space-x-8 lg:flex"></ul>
           <ul className="flex items-center space-x-8 lg:flex"></ul>
 
           <ul className="flex items-center ml-auto space-x-16 lg:flex">

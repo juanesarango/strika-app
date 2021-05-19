@@ -1,7 +1,9 @@
 import './App.css'
 import React from 'react'
 import LeaderBoard from './components/LeaderBoard'
+import VideoList from './components/VideoList'
 import Navbar from './components/Navbar'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
@@ -20,11 +22,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="flex flex-col">
+      <Router className="flex flex-col">
         <Navbar onAuthenticate={this.onAuthenticate} />
         {this.state.isSigned ? (
           <div>
-            <LeaderBoard user={this.state.user} />
+            <Switch>
+              <Route exact path="/">
+                <LeaderBoard user={this.state.user} />
+              </Route>
+              <Route path="/videos">
+                <VideoList user={this.state.user} />
+              </Route>
+            </Switch>
           </div>
         ) : (
           <div className="bg-gray-50 mt-64">
@@ -38,7 +47,7 @@ class App extends React.Component {
             </div>
           </div>
         )}
-      </div>
+      </Router>
     )
   }
 }
